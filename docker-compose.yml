@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_USER: yamameshi
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: yamameshi_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yamameshi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    healthcheck:
+    # DBが起動してからRailsが動くようにするためのチェック
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    command: bash -c "
+      rm -f tmp/pids/server.pid &&
+      bundle install &&
+      yarn install &&
+      bin/rails db:prepare &&
+      bin/rails server -b '0.0.0.0'"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    environment:
+      TZ: Asia/Tokyo
+    stdin_open: true
+    tty: true
+    env_file: .env.development.local
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file: .env.development.local
+    profiles: ["worker"]   # ←普段は起動しない
+
+volumes:
+  postgres_data:
+  redis_data:
+  bundle_cache:
+  node_modules:
