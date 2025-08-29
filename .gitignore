@@ -36,3 +36,7 @@
 
 node_modules/
 vendor/bundle
+coverage/
+vendor/bundle
+.DS_Store
+docs/
