@@ -1,13 +1,11 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:15
     environment:
       TZ: Asia/Tokyo
-      POSTGRES_USER: yamameshi
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: yamameshi_development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: yamameshi
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -54,6 +52,11 @@ services:
 
     environment:
       TZ: Asia/Tokyo
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: yamameshi 
     stdin_open: true
     tty: true
     env_file: .env.development.local
