@@ -144,7 +144,7 @@ GEM
     minitest (5.25.5)
     msgpack (1.8.0)
     mutex_m (0.3.0)
-    net-imap (0.5.9)
+    net-imap (0.5.10)
       date
       net-protocol
     net-pop (0.1.2)
@@ -158,15 +158,12 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.9-x86_64-linux-gnu)
-      racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
     pg (1.6.1-aarch64-linux)
     pg (1.6.1-arm64-darwin)
-    pg (1.6.1-x86_64-linux)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -223,6 +220,8 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.0)
+    rbs (3.9.4)
+      logger
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
@@ -248,6 +247,10 @@ GEM
     rubocop-ast (1.46.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    ruby-lsp (0.26.1)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 5)
     ruby-progressbar (1.13.0)
     rubyzip (3.0.2)
     securerandom (0.4.1)
@@ -295,7 +298,6 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin-23
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -309,6 +311,7 @@ DEPENDENCIES
   rails (~> 7.1.5, >= 7.1.5.2)
   redis (>= 4.0.1)
   rubocop
+  ruby-lsp
   selenium-webdriver
   sprockets-rails
   stimulus-rails
