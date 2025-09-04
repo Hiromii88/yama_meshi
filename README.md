@@ -1,24 +1,14 @@
-# README
+# やま飯（YamaMeshi）
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 📚 ドキュメント
+- [サービス概要](docs/overview.md)
 
-Things you may want to cover:
+## 🚀 開発環境の立ち上げ方
 
-* Ruby version
+```bash
+git clone https://github.com/Hiromii88/yama_meshi.git
+cd yama_meshi
+docker compose build
+docker compose up
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ブラウザで http://localhost:3000 にアクセスしてください。
