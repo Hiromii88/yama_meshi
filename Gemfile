@@ -53,7 +53,10 @@ group :development do
   gem "pry-byebug"   # デバッグ用
   gem "rubocop", require: false   # 静的解析
   gem "ruby-lsp", require: false  # LSPサポート
+  
+  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  
   gem 'rspec-rails'
   gem 'factory_bot_rails'
 end
