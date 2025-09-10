@@ -1,8 +1,16 @@
 <h2>必要なカロリーは？</h2>
 
-<%= form_with url: suggest_path, method: :get, local: true do %>
-  <%= number_field_tag :kcal, nil, min: 0, step: 50 %> kcal
-  <%= submit_tag "決定" %>
+<%= form_with model: @form, url: suggest_path, local: true do |f| %>
+  <%= f.number_field :kcal, placeholder: "1〜5000" %> kcal
+  <% if @form.errors[:kcal].any? %>
+    <ul class="error-messages">
+      <% @form.errors.full_messages_for(:kcal).each do |msg| %>
+        <li style="color:red;"><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= f.submit "決定" %>
 <% end %>
 
 <p>ランダムで山ご飯を提案するよ</p>

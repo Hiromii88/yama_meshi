@@ -1,2 +1,28 @@
-<h1>Recipes#show</h1>
-<p>Find me in app/views/recipes/show.html.erb</p>
+<div class="container mx-auto px-4 py-8 text-center">
+  <h1 class="text-2xl font-bold mb-6">おすすめのメニューはこれ！</h1>
+
+  <% if @recipe %>
+    <div class="bg-white rounded-lg shadow p-6 inline-block">
+      <% if @recipe.image.attached? %>
+        <%= image_tag @recipe.image.variant(resize_to_limit: [300, 300]).processed,
+                      alt: @recipe.name,
+                      class: "mx-auto mb-4 rounded-lg shadow" %>
+      <% else %>
+        <div class="mx-auto mb-4 w-64 h-64 flex items-center justify-center bg-gray-100 rounded-lg">
+          <span class="text-gray-400">No Image</span>
+        </div>
+      <% end %>
+
+      <h2 class="text-lg font-semibold mb-2"><%= @recipe.name %></h2>
+      <p class="text-gray-600 mb-4"><%= @recipe.calories %> kcal</p>
+
+      <div class="space-x-4">
+        <%= link_to "詳しいレシピ", recipe_path(@recipe), class: "font-semibold text-blue-600 hover:underline" %>
+        <%= link_to "もう一度", root_path, class: "text-gray-600 hover:underline" %>
+        <%= link_to "お気に入り", "#", class: "text-gray-600 hover:underline" %>
+      </div>
+    </div>
+  <% else %>
+    <p class="text-gray-500">レシピが見つかりませんでした。</p>
+  <% end %>
+</div>
