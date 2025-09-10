@@ -7,6 +7,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     libyaml-dev \
     libxml2-dev libxslt1-dev \
     nodejs npm \
+    libvips \
     && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g yarn
