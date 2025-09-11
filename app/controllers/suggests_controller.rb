@@ -12,7 +12,7 @@ class SuggestsController < ApplicationController
       @recipe = find_recipe(@kcal)
 
       if @recipe
-        redirect_to recipe_path(@recipe, kcal: @kcal)
+        redirect_to result_recipe_path(@recipe, kcal: @kcal)
       else
         redirect_to root_path, alert: "条件にあうレシピが見つかりません"
       end

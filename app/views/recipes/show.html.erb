@@ -1,28 +1,55 @@
-<div class="container mx-auto px-4 py-8 text-center">
-  <h1 class="text-2xl font-bold mb-6">おすすめのメニューはこれ！</h1>
+<div class="container mx-auto px-4 py-8">
+  <div class="bg-white rounded-lg shadow p-6 max-w-2xl mx-auto">
+    <!-- レシピ名 -->
+    <h1 class="text-2xl font-bold mb-4"><%= @recipe.name %></h1>
 
-  <% if @recipe %>
-    <div class="bg-white rounded-lg shadow p-6 inline-block">
-      <% if @recipe.image.attached? %>
-        <%= image_tag @recipe.image.variant(resize_to_limit: [300, 300]).processed,
-                      alt: @recipe.name,
-                      class: "mx-auto mb-4 rounded-lg shadow" %>
-      <% else %>
-        <div class="mx-auto mb-4 w-64 h-64 flex items-center justify-center bg-gray-100 rounded-lg">
-          <span class="text-gray-400">No Image</span>
-        </div>
-      <% end %>
+    <!-- カロリー -->
+    <p class="text-gray-600 mb-6"><%= @recipe.calories %> kcal</p>
 
-      <h2 class="text-lg font-semibold mb-2"><%= @recipe.name %></h2>
-      <p class="text-gray-600 mb-4"><%= @recipe.calories %> kcal</p>
-
-      <div class="space-x-4">
-        <%= link_to "詳しいレシピ", recipe_path(@recipe), class: "font-semibold text-blue-600 hover:underline" %>
-        <%= link_to "もう一度", root_path, class: "text-gray-600 hover:underline" %>
-        <%= link_to "お気に入り", "#", class: "text-gray-600 hover:underline" %>
+    <!-- 画像 -->
+    <% if @recipe.image.attached? %>
+      <%= image_tag @recipe.image.variant(resize_to_limit: [400, 400]).processed,
+                    alt: @recipe.name,
+                    class: "mx-auto mb-6 rounded-lg shadow" %>
+    <% else %>
+      <div class="w-64 h-64 mx-auto mb-6 flex items-center justify-center bg-gray-100 rounded-lg">
+        <span class="text-gray-400">No Image</span>
       </div>
+    <% end %>
+
+    <!-- 材料 -->
+    <% if @recipe.ingredients.present? %>
+      <h2 class="text-lg font-semibold mb-2">材料</h2>
+      <ul class="list-disc list-inside mb-6 text-gray-700">
+        <% @recipe.ingredients.each do |item| %>
+          <li><%= item %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <!-- ギア -->
+    <% if @recipe.gear.present? %>
+      <h2 class="text-lg font-semibold mb-2">必要なギア</h2>
+      <ul class="list-disc list-inside mb-6 text-gray-700">
+        <% @recipe.gear.each do |g| %>
+          <li><%= g %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <!-- 手順 -->
+    <% if @recipe.steps.present? %>
+      <h2 class="text-lg font-semibold mb-2">作り方</h2>
+      <ol class="list-decimal list-inside mb-6 text-gray-700">
+        <% @recipe.steps.each do |s| %>
+          <li><%= s %></li>
+        <% end %>
+      </ol>
+    <% end %>
+
+    <!-- 戻るリンク -->
+    <div class="flex justify-between text-sm">
+      <%= link_to "← トップに戻る", root_path, class: "text-blue-600 hover:underline" %>
     </div>
-  <% else %>
-    <p class="text-gray-500">レシピが見つかりませんでした。</p>
-  <% end %>
+  </div>
 </div>
