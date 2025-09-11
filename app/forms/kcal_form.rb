@@ -8,7 +8,7 @@ class KcalForm
             presence: true,
             numericality: {
               only_integer: true,
-              greater_than_or_equal_to: 1,
-              less_than_or_equal_to: 5000
+              greater_than_or_equal_to: 0,
+              less_than_or_equal_to: 1000
             }
 end

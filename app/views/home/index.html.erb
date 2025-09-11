@@ -1,7 +1,7 @@
 <h2>必要なカロリーは？</h2>
 
 <%= form_with model: @form, url: suggest_path, local: true do |f| %>
-  <%= f.number_field :kcal, placeholder: "1〜5000" %> kcal
+  <%= f.number_field :kcal, placeholder: "29〜1000" %> kcal
   <% if @form.errors[:kcal].any? %>
     <ul class="error-messages">
       <% @form.errors.full_messages_for(:kcal).each do |msg| %>
