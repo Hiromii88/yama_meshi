@@ -140,6 +140,9 @@ GEM
       activesupport (>= 7.0.0)
     json (2.13.2)
     language_server-protocol (3.17.0.5)
+    line-bot-api (2.2.0)
+      base64 (~> 0.2)
+      multipart-post (~> 2.4)
     lint_roller (1.1.0)
     logger (1.7.0)
     loofah (2.24.1)
@@ -159,6 +162,7 @@ GEM
     mini_portile2 (2.8.9)
     minitest (5.25.5)
     msgpack (1.8.0)
+    multipart-post (2.4.1)
     mutex_m (0.3.0)
     net-imap (0.5.9)
       date
@@ -352,6 +356,8 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  line-bot-api
+  mini_magick
   pg (~> 1.1)
   pry-byebug
   puma (>= 5.0)
@@ -360,6 +366,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   ruby-lsp
+  ruby-vips
   selenium-webdriver
   sprockets-rails
   stimulus-rails
