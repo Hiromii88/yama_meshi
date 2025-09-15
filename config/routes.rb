@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   root 'home#index'
   post 'suggest', to: 'suggests#create', as: :suggest
 
-  resources :recipes, only: [:show] do
+  resources :recipes, only: %i[show] do
     member do
       get :result
     end
+    resources :favorites, only: %i[create destroy]
   end
 
   post '/callback' => 'linebot#callback'

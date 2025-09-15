@@ -1,10 +1,16 @@
 class RecipesController < ApplicationController
+  before_action :set_recipe
+
   def show
-    @recipe = Recipe.find(params[:id])
   end
 
   def result
+    @kcal = params[:kcal]
+  end
+
+  private
+
+  def set_recipe
     @recipe = Recipe.find(params[:id])
-    @kcal   = params[:kcal]
   end
 end

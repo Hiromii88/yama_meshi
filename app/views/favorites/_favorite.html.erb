@@ -1,0 +1,5 @@
+<%= form_with url: recipe_favorites_path(@recipe), method: :post do %>
+  <button type="submit" class="text-gray-500 hover:text-red-500">
+    <%= heroicon "heart", variant: :outline, options: { class: "w-6 h-6" } %>
+  </button>
+<% end %>

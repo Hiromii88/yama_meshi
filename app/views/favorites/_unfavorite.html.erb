@@ -1,0 +1,5 @@
+<%= form_with url: recipe_favorite_path(recipe, current_user.favorites.find_by(recipe_id: recipe.id)), method: :delete do %>
+  <button type="submit" class="text-red-500 hover:text-gray-500">
+    <%= heroicon "heart", variant: :solid, options: { class: "w-6 h-6" } %>
+  </button>
+<% end %>
