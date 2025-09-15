@@ -17,6 +17,14 @@
       </div>
     <% end %>
 
+    <div class="mt-4">
+      <% if current_user.favorites.exists?(recipe_id: @recipe.id) %>
+        <%= render "favorites/unfavorite", recipe: @recipe %>
+      <% else %>
+        <%= render "favorites/favorite", recipe: @recipe %>
+      <% end %>
+    </div>
+
     <!-- 材料 -->
     <% if @recipe.ingredients.present? %>
       <h2 class="text-lg font-semibold mb-2">材料</h2>

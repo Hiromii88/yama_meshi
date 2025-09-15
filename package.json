@@ -1,0 +1,13 @@
+{
+  "name": "yama_meshi",
+  "private": true,
+  "scripts": {
+    "build:css": "postcss app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.13"
+  }
+}

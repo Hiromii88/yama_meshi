@@ -1,3 +1,5 @@
+
+
 <div class="container mx-auto px-4 py-8 text-center">
   <h1 class="text-2xl font-bold mb-6">おすすめのメニューはこれ！</h1>
 
@@ -13,16 +15,25 @@
         </div>
       <% end %>
 
-      <h2 class="text-lg font-semibold mb-2"><%= @recipe.name %></h2>
+      <!-- タイトルとハートを横並び -->
+      <div class="flex items-center justify-center space-x-2 mb-2">
+        <h2 class="text-lg font-semibold"><%= @recipe.name %></h2>
+        <% if current_user.favorites.exists?(recipe_id: @recipe.id) %>
+          <%= render "favorites/unfavorite", recipe: @recipe %>
+        <% else %>
+          <%= render "favorites/favorite", recipe: @recipe %>
+        <% end %>
+      </div>
+
       <p class="text-gray-600 mb-4"><%= @recipe.calories %> kcal</p>
 
       <div class="space-x-4">
         <%= link_to "詳しいレシピ", recipe_path(@recipe), class: "font-semibold text-blue-600 hover:underline" %>
         <%= link_to "もう一度", root_path, class: "text-gray-600 hover:underline" %>
-        <%= link_to "お気に入り", "#", class: "text-gray-600 hover:underline" %>
       </div>
     </div>
   <% else %>
     <p class="text-gray-500">レシピが見つかりませんでした。</p>
   <% end %>
 </div>
+
