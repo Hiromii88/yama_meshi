@@ -4,14 +4,14 @@ class User < ApplicationRecord
   has_many :favorite_recipes, through: :favorites, source: :recipe
 
   def favorite(recipe)
-    favorite_recipes << recipe
+    favorites.find_or_create_by(recipe: recipe)
   end
 
   def unfavorite(recipe)
-    favorite_recipes.destroy(recipe)
+    favorites.find_by(recipe: recipe)&.destroy
   end
 
-  def favorite?(recipe)
-    favorite_recipes.include?(recipe)
+  def favorited?(recipe)
+    favorites.exists?(recipe: recipe)
   end
 end

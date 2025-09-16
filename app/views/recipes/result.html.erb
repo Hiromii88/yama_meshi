@@ -18,11 +18,14 @@
       <!-- タイトルとハートを横並び -->
       <div class="flex items-center justify-center space-x-2 mb-2">
         <h2 class="text-lg font-semibold"><%= @recipe.name %></h2>
-        <% if current_user.favorites.exists?(recipe_id: @recipe.id) %>
-          <%= render "favorites/unfavorite", recipe: @recipe %>
-        <% else %>
-          <%= render "favorites/favorite", recipe: @recipe %>
-        <% end %>
+
+        <div id="favorite_button">
+          <% if current_user.favorited?(@recipe) %>
+            <%= render "favorites/unfavorite", recipe: @recipe %>
+          <% else %>
+            <%= render "favorites/favorite", recipe: @recipe %>
+          <% end %>
+        </div>
       </div>
 
       <p class="text-gray-600 mb-4"><%= @recipe.calories %> kcal</p>
