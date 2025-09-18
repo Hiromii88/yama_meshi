@@ -1,16 +1,26 @@
-<h2>必要なカロリーは？</h2>
+<div class="container mx-auto px-4 py-8 text-center">
+  <h1 class="text-2xl font-bold mb-6">必要なカロリーは？</h1>
 
-<%= form_with model: @form, url: suggest_path, local: true do |f| %>
-  <%= f.number_field :kcal, placeholder: "29〜1000" %> kcal
-  <% if @form.errors[:kcal].any? %>
-    <ul class="error-messages">
-      <% @form.errors.full_messages_for(:kcal).each do |msg| %>
-        <li style="color:red;"><%= msg %></li>
+  <div class="bg-white rounded-lg shadow p-6 inline-block">
+    <%= form_with model: @form, url: suggest_path, local: true, class: "space-y-4" do |f| %>
+      <div>
+        <%= f.number_field :kcal,
+              placeholder: "29〜1000",
+              class: "border rounded-lg px-4 py-2 w-40 text-center" %> kcal
+      </div>
+
+      <% if @form.errors[:kcal].any? %>
+        <ul class="text-red-500 text-sm mb-2">
+          <% @form.errors.full_messages_for(:kcal).each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
 
-  <%= f.submit "決定" %>
-<% end %>
+      <%= f.submit "決定",
+            class: "bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-blue-700" %>
+    <% end %>
 
-<p>ランダムで山ご飯を提案するよ</p>
+    <p class="text-gray-600 mt-4">🎲 ランダムで山ご飯を提案するよ</p>
+  </div>
+</div>
