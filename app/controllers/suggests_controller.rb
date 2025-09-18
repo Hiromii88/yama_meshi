@@ -5,8 +5,8 @@ class SuggestsController < ApplicationController
     if @form.valid?
       @kcal = @form.kcal
 
-      if (1..8).include?(@kcal)
-        return redirect_to recipe_path(77)
+      if (0..8).include?(@kcal)
+        return redirect_to result_recipe_path(77)
       end
 
       @recipe = find_recipe(@kcal)

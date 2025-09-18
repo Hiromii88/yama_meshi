@@ -2,20 +2,20 @@
   <h1 class="text-2xl font-bold mb-6">必要なカロリーは？</h1>
 
   <div class="bg-white rounded-lg shadow p-6 inline-block border border-gray-200">
+    <% if @form.errors[:kcal].any? %>
+      <ul class="text-red-500 text-sm mb-2">
+        <% @form.errors.full_messages_for(:kcal).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <%= form_with model: @form, url: suggest_path, local: true, class: "space-y-4" do |f| %>
       <div>
-        <%= f.number_field :kcal,
-              placeholder: "29〜1000",
-              class: "border rounded-lg px-4 py-2 w-40 text-center" %> kcal
+      <%= f.number_field :kcal,
+            placeholder: "29〜800",
+            class: "border rounded-lg px-4 py-2 w-40 text-center" %> kcal
       </div>
-
-      <% if @form.errors[:kcal].any? %>
-        <ul class="text-red-500 text-sm mb-2">
-          <% @form.errors.full_messages_for(:kcal).each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      <% end %>
 
       <%= f.submit "決定",
             class: "bg-green-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-green-700 transition-colors" %>

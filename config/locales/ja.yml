@@ -1,0 +1,42 @@
+ja:
+  activemodel:
+    attributes:
+      kcal_form:
+        kcal: カロリー
+    errors:
+      models:
+        kcal_form:
+          attributes:
+            kcal:
+              greater_than_or_equal_to: "は%{count}以上で入力してください"
+              less_than_or_equal_to: "は%{count}以下で入力してください"
+
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "は既に登録されています"
+            password:
+              too_short: "%{count}文字以上で入力してください"
+              blank: "を入力してください"
+            password_confirmation:
+              confirmation: "が一致しません"
+
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_short: "%{count}文字以上で入力してください"
+      confirmation: "が一致しません"
+      taken: "は既に登録されています"
+
+  devise:
+    failure:
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
+
