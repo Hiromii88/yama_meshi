@@ -7,18 +7,12 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? %>
-        <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "ログイン", new_user_session_path %> |
-        <%= link_to "新規登録", new_user_registration_path %>
-      <% end %>
-    </header>
-
+    <%= render "shared/header" %>
+    <%= render "shared/flash" %>
     <%= yield %>
   </body>
 </html>
