@@ -1,0 +1,51 @@
+<!-- app/views/shared/_header.html.erb -->
+<header class="flex justify-between items-center p-4 bg-green-700 text-white">
+  <!-- 左ロゴ -->
+  <div class="flex items-center space-x-2">
+    <%= link_to root_path, class: "flex items-center space-x-2" do %>
+      <span class="text-2xl">⛰️</span>
+      <span class="font-bold">YAMA-MESHI</span>
+    <% end %>
+  </div>
+
+  <!-- 右ナビ -->
+  <nav class="flex items-center space-x-4">
+    <% if user_signed_in? %>
+      <!-- ログアウト -->
+      <%= form_with url: destroy_user_session_path, method: :delete, class: "inline" do %>
+        <%= button_tag type: :submit, class: "flex items-center space-x-2 px-4 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white" do %>
+          <i class="fa-solid fa-right-from-bracket text-lg"></i>
+          <span>ログアウト</span>
+        <% end %>
+      <% end %>
+
+      <!-- LINE連携 -->
+      <%= link_to "#",
+            class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
+            title: "LINE連携" do %>
+        <i class="fa-brands fa-line text-2xl"></i>
+      <% end %>
+    <% else %>
+      <!-- ログイン -->
+      <%= link_to new_user_session_path,
+            class: "flex items-center space-x-2 px-4 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white" do %>
+        <i class="fa-solid fa-right-to-bracket text-lg"></i>
+        <span>ログイン</span>
+      <% end %>
+
+      <!-- 新規登録 -->
+      <%= link_to new_user_registration_path,
+            class: "flex items-center space-x-2 px-4 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white" do %>
+        <i class="fa-solid fa-user-plus text-lg"></i>
+        <span>新規登録</span>
+      <% end %>
+
+      <!-- LINE連携 -->
+      <%= link_to "#",
+            class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
+            title: "LINE連携" do %>
+        <i class="fa-brands fa-line text-2xl"></i>
+      <% end %>
+    <% end %>
+  </nav>
+</header>
