@@ -13,12 +13,17 @@ CSV.open(output_path, 'w', encoding: "UTF-8") do |csv_out|
 
   csv.each do |row|
     ["ingredients", "gear", "steps"].each do |col|
-      if row[col] && !row[col].strip.empty?
-        # 改行・カンマ・読点で分割
-        items = row[col].split(/\r?\n|、|,/).map(&:strip).reject(&:empty?)
-        row[col] = items.to_json
-      else
+      if row[col].nil? || row[col].strip.empty?
         row[col] = [].to_json   # 空欄は [] に変換
+      else
+        # JSONとして正しいかチェック
+        begin
+          JSON.parse(row[col])
+          # 正常ならそのまま
+        rescue JSON::ParserError
+          puts "⚠️ JSON形式エラー: #{col} → #{row[col].inspect} （行: #{row.inspect}）"
+          row[col] = [].to_json
+        end
       end
     end
     csv_out << row
