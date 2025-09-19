@@ -40,7 +40,9 @@
       <p class="text-gray-600 mb-4"><%= @recipe.calories %> kcal</p>
 
       <div class="space-x-4">
-        <%= link_to "詳しいレシピ", recipe_path(@recipe), class: "font-semibold text-blue-600 hover:underline" %>
+        <% if @recipe.steps.present? %>
+          <%= link_to "詳しいレシピ", recipe_path(@recipe), class: "font-semibold text-blue-600 hover:underline" %>
+        <% end %>
         <%= link_to "もう一度", root_path, class: "text-gray-600 hover:underline" %>
       </div>
     </div>
