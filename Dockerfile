@@ -39,7 +39,8 @@ COPY . .
 
 # Tailwind / Asset をビルド
 RUN yarn build:css
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+# Rails assets precompile（ダミー値を渡す）
+RUN SECRET_KEY_BASE=DummyValue bundle exec rails assets:precompile
 
 # tmp ディレクトリ作成
 RUN mkdir -p tmp/pids
