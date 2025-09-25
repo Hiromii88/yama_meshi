@@ -1,6 +1,8 @@
 require "csv"
 require "json"
-require "open-uri"  # S3 の画像 URL を開くために必要
+require "open-uri"
+
+Recipe.destroy_all
 
 csv_path = Rails.root.join("db/csv/recipes_converted.csv")
 
