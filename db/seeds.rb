@@ -16,9 +16,7 @@ CSV.foreach(csv_path, headers: true).with_index(1) do |row, i|
     steps:       JSON.parse(row["steps"])
   )
 
-  # S3 の画像ファイル URL を推測（例: seeds/1.png, seeds/2.png...）
-  image_url   = "#{s3_base_url}/#{i}.png"
-  default_url = "#{s3_base_url}/default.png"
+  image_url = "#{s3_base_url}/#{i}.png"
 
   begin
     recipe.image.attach(
@@ -26,9 +24,6 @@ CSV.foreach(csv_path, headers: true).with_index(1) do |row, i|
       filename: "#{i}.png"
     )
   rescue OpenURI::HTTPError
-    recipe.image.attach(
-      io: URI.open(default_url),
-      filename: "default.png"
-    )
+    Rails.logger.info "No image for recipe #{i}, skipping attach"
   end
 end
