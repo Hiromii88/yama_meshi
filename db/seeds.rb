@@ -1,8 +1,11 @@
 require "csv"
 require "json"
+require "open-uri"  # S3 の画像 URL を開くために必要
 
 csv_path = Rails.root.join("db/csv/recipes_converted.csv")
-default_image_path = Rails.root.join("db/seed_images/default.png")
+
+# S3 上のベース URL
+s3_base_url = "https://#{Rails.application.credentials.dig(:aws, :bucket)}.s3.#{Rails.application.credentials.dig(:aws, :region)}.amazonaws.com/seeds"
 
 CSV.foreach(csv_path, headers: true).with_index(1) do |row, i|
   recipe = Recipe.create!(
@@ -13,12 +16,19 @@ CSV.foreach(csv_path, headers: true).with_index(1) do |row, i|
     steps:       JSON.parse(row["steps"])
   )
 
-  # 画像ファイル名をIDや行番号で推測する例（例: 1.png, 2.png…）
-  image_path = Rails.root.join("db/seed_images", "#{i}.png")
+  # S3 の画像ファイル URL を推測（例: seeds/1.png, seeds/2.png...）
+  image_url   = "#{s3_base_url}/#{i}.png"
+  default_url = "#{s3_base_url}/default.png"
 
-  if File.exist?(image_path)
-    recipe.image.attach(io: File.open(image_path), filename: "#{i}.png")
-  elsif File.exist?(default_image_path)
-    recipe.image.attach(io: File.open(default_image_path), filename: "default.png")
+  begin
+    recipe.image.attach(
+      io: URI.open(image_url),
+      filename: "#{i}.png"
+    )
+  rescue OpenURI::HTTPError
+    recipe.image.attach(
+      io: URI.open(default_url),
+      filename: "default.png"
+    )
   end
 end
