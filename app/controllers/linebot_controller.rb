@@ -40,7 +40,16 @@ class LinebotController < ApplicationController
   end
 
   def handle_message(event)
-    input_calorie = event.message.text.to_i
+    line_user_id = event.source.user_id
+    user = User.find_or_create_by(line_user_id: line_user_id) do |u|
+      u.email = "#{line_user_id}@line.local"
+      u.password = SecureRandom.hex(10)
+    end
+    
+    # 全角数字にも対応
+    input_text = event.message.text
+    input_calorie = input_text.tr("０-９", "0-9").to_i
+
     recipe = Recipe.where(calories: (input_calorie - 20)..(input_calorie + 20)).order("RANDOM()").first
     recipe ||= Recipe.order("RANDOM()").first
 
