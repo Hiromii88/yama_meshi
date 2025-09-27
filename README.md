@@ -43,7 +43,7 @@
 - フロントエンド: Tailwind CSS
 - テスト: RSpec
 - インフラ: Docker（開発環境）、Render（本番デプロイ予定）
-- 外部連携: LINE Notify（予定）
+- 外部連携: LINE Messaging API
 
 ## ■ 今後の展望
 - レシピのタグ付け（主食/デザート/軽量食 など）による組み合わせ提案

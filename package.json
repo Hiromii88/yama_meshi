@@ -1,13 +1,20 @@
 {
   "name": "yama_meshi",
-  "private": true,"scripts": {
+  "private": true,
+  "scripts": {
     "build:css": "postcss app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css",
-    "watch:css": "postcss app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css --watch"
+    "watch:css": "postcss app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css --watch",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
+    "esbuild": "^0.25.10",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^4.1.13"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.18"
   }
 }

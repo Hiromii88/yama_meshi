@@ -39,19 +39,19 @@ class LinebotController < ApplicationController
     end
   end
 
-  def handle_message(event)
+  def handle_message(event) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     line_user_id = event.source.user_id
-    user = User.find_or_create_by(line_user_id: line_user_id) do |u|
+    User.find_or_create_by(line_user_id: line_user_id) do |u|
       u.email = "#{line_user_id}@line.local"
       u.password = SecureRandom.hex(10)
     end
-    
+
     # 全角数字にも対応
     input_text = event.message.text
-    input_calorie = input_text.tr("０-９", "0-9").to_i
+    input_calorie = input_text.tr('０-９', '0-9').to_i
 
-    recipe = Recipe.where(calories: (input_calorie - 20)..(input_calorie + 20)).order("RANDOM()").first
-    recipe ||= Recipe.order("RANDOM()").first
+    recipe = Recipe.where(calories: (input_calorie - 20)..(input_calorie + 20)).order('RANDOM()').first
+    recipe ||= Recipe.order('RANDOM()').first
 
     request = Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
       reply_token: event.reply_token,

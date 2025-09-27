@@ -1,25 +1,32 @@
 class FavoritesController < ApplicationController
-  before_action :authenticate_user!
-
+  before_action :require_active_user
   def create
     @recipe = Recipe.find(params[:recipe_id])
-    current_user.favorite(@recipe)
+    @active_user.favorite(@recipe)
 
     ingredients = @recipe.ingredients
 
-    if current_user.line_user_id.present?
+    if @active_user.line_user_id.present?
       LineNotifier.push_message(
-        user_id: "current_user.line_user_id",
+        line_user_id: @active_user.line_user_id,
         message: "📌 お気に入り登録しました！\n" \
                  "#{@recipe.name} (#{@recipe.calories} kcal)\n\n" \
                  "🛒 材料:\n" \
                  "#{ingredients.join("\n")}"
-        )
+      )
     end
   end
 
   def destroy
-    @recipe = current_user.favorites.find(params[:id]).recipe
-    current_user.unfavorite(@recipe)
+    @recipe = @active_user.favorites.find(params[:id]).recipe
+    @active_user.unfavorite(@recipe)
+  end
+
+  private
+
+  def require_active_user
+    unless @active_user
+      redirect_to root_path, alert: 'ログインまたはLINE友達登録が必要です'
+    end
   end
 end

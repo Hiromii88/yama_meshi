@@ -1,9 +1,9 @@
 require 'line-bot-api'
 
 class LineNotifier
-  def self.push_message(user_id:, message:)
+  def self.push_message(line_user_id:, message:)
     request = Line::Bot::V2::MessagingApi::PushMessageRequest.new(
-      to:user_id,
+      to: line_user_id,
       messages: [
         Line::Bot::V2::MessagingApi::TextMessage.new(text: message)
       ]
