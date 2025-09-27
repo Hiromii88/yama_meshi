@@ -18,8 +18,8 @@
         <h2 class="text-lg font-semibold"><%= @recipe.name %></h2>
 
         <div id="favorite_button">
-          <% if user_signed_in? %>
-            <% if current_user.favorited?(@recipe) %>
+          <% if @active_user.present? %>
+            <% if @active_user.favorited?(@recipe) %>
               <%= render "favorites/unfavorite", recipe: @recipe %>
             <% else %>
               <%= render "favorites/favorite", recipe: @recipe %>
