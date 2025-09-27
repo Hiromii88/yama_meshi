@@ -20,14 +20,12 @@
       <% end %>
 
       <!-- LINE連携 -->
-      <%= button_tag type: "button",
-        class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
-        title: "LINE連携コード発行",
-        data: { action: "click->line-link#open" } do %>
+      <%= link_to "https://lin.ee/8dgAITR", target: "_blank",
+            class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
+            title: "LINE連携" do %>
         <i class="fa-brands fa-line text-2xl"></i>
       <% end %>
     <% else %>
-
       <!-- ログイン -->
       <%= link_to new_user_session_path,
             class: "flex items-center space-x-2 px-4 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white" do %>
@@ -45,7 +43,7 @@
       <!-- LINE連携 -->
       <%= link_to "https://lin.ee/8dgAITR", target: "_blank",
             class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
-            title: "LINE友達追加" do %>
+            title: "LINE連携" do %>
         <i class="fa-brands fa-line text-2xl"></i>
       <% end %>
     <% end %>

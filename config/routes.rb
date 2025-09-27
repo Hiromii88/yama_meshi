@@ -1,15 +1,8 @@
 Rails.application.routes.draw do
-  root 'home#index'
-
   devise_for :users
+  get "up" => "rails/health#show", as: :rails_health_check
 
-  resources :users, only: [] do
-    member do
-      post :line_link
-      get :line_link_show
-    end
-  end
-
+  root 'home#index'
   post 'suggest', to: 'suggests#create', as: :suggest
 
   resources :recipes, only: %i[show] do
@@ -20,6 +13,4 @@ Rails.application.routes.draw do
   end
 
   post '/callback' => 'linebot#callback'
-
-  get 'up' => 'rails/health#show', as: :rails_health_check
 end
