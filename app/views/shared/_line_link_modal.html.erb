@@ -1,0 +1,20 @@
+<!-- ボタン -->
+<%= button_tag "LINE連携コード発行",
+  type: "button",
+  class: "px-4 py-2 bg-green-600 text-white rounded",
+  data: { action: "click->line-link#open" } %>
+
+<!-- モーダル -->
+<div data-controller="line-link"
+     data-line-link-target="modal"
+     class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white p-4 rounded shadow text-center">
+    <h2 class="text-lg font-bold mb-2">LINE連携コード</h2>
+    <p id="line_token" class="mb-4"><%= current_user.line_link_token %></p>
+    <button data-action="click->line-link#close"
+            class="px-3 py-1 bg-gray-400 text-white rounded">
+      閉じる
+    </button>
+  </div>
+</div>
+
