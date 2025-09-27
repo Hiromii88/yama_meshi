@@ -18,14 +18,14 @@ CSV.foreach(csv_path, headers: true).with_index(1) do |row, i|
     steps:       JSON.parse(row["steps"])
   )
 
-  image_url = "#{s3_base_url}/#{i}.png"
+  #image_url = "#{s3_base_url}/#{i}.png"
 
-  begin
-    recipe.image.attach(
-      io: URI.open(image_url),
-      filename: "#{i}.png"
-    )
-  rescue OpenURI::HTTPError
-    Rails.logger.info "No image for recipe #{i}, skipping attach"
-  end
+  #begin
+  #  recipe.image.attach(
+  #    io: URI.open(image_url),
+  #    filename: "#{i}.png"
+  #  )
+  #rescue OpenURI::HTTPError
+  #  Rails.logger.info "No image for recipe #{i}, skipping attach"
+  #end
 end
