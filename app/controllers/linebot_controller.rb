@@ -41,25 +41,33 @@ class LinebotController < ApplicationController
 
   def handle_message(event) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     line_user_id = event.source.user_id
-    User.find_or_create_by(line_user_id: line_user_id) do |u|
-      u.email = "#{line_user_id}@line.local"
-      u.password = SecureRandom.hex(10)
+    input_text   = event.message.text.strip
+
+    # 1. 連携コードと一致するか確認
+    user = User.find_by(line_link_token: input_text)
+    if user
+      user.update_columns(line_user_id: line_user_id, line_link_token: nil)
+      text = '✅ LINE連携が完了しました！'
+    else
+      # 2. 数字入力として判定
+      input_calorie = input_text.tr('０-９', '0-9').to_i
+      form = KcalForm.new(kcal: input_calorie)
+
+      if form.valid?
+        recipe = Recipe.where(calories: (input_calorie - 20)..(input_calorie + 20)).order('RANDOM()').first
+        recipe ||= Recipe.order('RANDOM()').first
+
+        text = "🎲 結果！\n#{input_calorie} kcalのおすすめは…\n#{recipe.name} (#{recipe.calories} kcal)"
+      else
+        # 3. それ以外はエラーメッセージ
+        text = '⚠️ 数字を入力するか、連携コードを送ってください。'
+      end
     end
 
-    # 全角数字にも対応
-    input_text = event.message.text
-    input_calorie = input_text.tr('０-９', '0-9').to_i
-
-    recipe = Recipe.where(calories: (input_calorie - 20)..(input_calorie + 20)).order('RANDOM()').first
-    recipe ||= Recipe.order('RANDOM()').first
-
+    # 共通の返信処理
     request = Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
       reply_token: event.reply_token,
-      messages: [
-        Line::Bot::V2::MessagingApi::TextMessage.new(
-          text: "🎲 結果！\n#{input_calorie} kcalのおすすめは…\n#{recipe.name} (#{recipe.calories} kcal)"
-        )
-      ]
+      messages: [Line::Bot::V2::MessagingApi::TextMessage.new(text: text)]
     )
     client.reply_message(reply_message_request: request)
   end

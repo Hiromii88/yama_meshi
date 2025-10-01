@@ -20,10 +20,9 @@
       <% end %>
 
       <!-- LINE連携 -->
-      <%= button_tag type: "button",
-        class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
-        title: "LINE連携コード発行",
-        data: { action: "click->line-link#open" } do %>
+      <%= link_to line_link_users_path,
+            class: "w-12 h-12 flex items-center justify-center rounded-full bg-[#06C755] hover:opacity-80 text-white",
+            title: "LINE連携コード発行" do %>
         <i class="fa-brands fa-line text-2xl"></i>
       <% end %>
     <% else %>
