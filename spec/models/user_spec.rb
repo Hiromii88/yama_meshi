@@ -1,3 +1,4 @@
+# rubocop:disable all
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -60,5 +61,9 @@ RSpec.describe User, type: :model do
         expect(user.errors).to be_empty
       end
     end
+  end
+  describe 'アソシエーション' do
+    it { should have_many(:favorites).dependent(:destroy) }
+    it { should have_many(:favorite_recipes).through(:favorites).source(:recipe) }
   end
 end
