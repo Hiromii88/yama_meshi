@@ -30,6 +30,19 @@ class SuggestsController < ApplicationController
   def find_recipe(kcal)
     lower_bound = [kcal - 20, 0].max
     upper_bound = kcal + 20
-    Recipe.where(calories: lower_bound..upper_bound).order("RANDOM()").first
+    recipes_in_range = Recipe.where(calories: lower_bound..upper_bound)
+
+    return recipes_in_range.order("RANDOM()").first if recipes_in_range.exists?
+
+    # なければ、全レシピの中から「kcalに最も近いレシピ」を探す
+    closest_recipes = Recipe
+      .select("*, ABS(calories - #{kcal}) AS diff")
+      .order("diff ASC")
+
+    # diff（差）が同じものが複数ある場合はランダムに選ぶ
+    min_diff = closest_recipes.first&.diff
+    candidates = closest_recipes.where("ABS(calories - ?) = ?", kcal, min_diff)
+
+    candidates.order("RANDOM()").first
   end
 end

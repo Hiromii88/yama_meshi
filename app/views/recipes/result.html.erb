@@ -2,7 +2,7 @@
   <h1 class="text-2xl font-bold mb-6">おすすめのメニューはこれ！</h1>
 
   <% if @recipe %>
-    <div class="bg-white rounded-lg shadow p-6 inline-block">
+    <div class="recipe-card bg-white rounded-lg shadow p-6 inline-block">
       <% if @recipe.image.attached? %>
         <%= image_tag @recipe.image.variant(resize_to_limit: [300, 300]).processed,
                       alt: @recipe.name,
