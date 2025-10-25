@@ -80,6 +80,8 @@ RSpec.configure do |config|
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
     Capybara.ignore_hidden_elements = false
   end
+  config.include Warden::Test::Helpers
+  config.after(type: :system) { Warden.test_reset! }
 end
 
 Shoulda::Matchers.configure do |config|
