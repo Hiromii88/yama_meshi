@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:15
@@ -25,18 +26,32 @@ jobs:
           --health-retries=5
 
     env:
-      DATABASE_URL: "postgres://postgres:password@localhost:5432/yama_meshi_test"
       RAILS_ENV: test
+      DB_HOST: localhost
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DATABASE_URL: "postgres://postgres:password@localhost:5432/yama_meshi_test"
+      DISABLE_BOOTSNAP: true
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: 3.2.2
           bundler-cache: true
-      - name: Prepare DB
+
+      - name: Install dependencies
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libpq-dev nodejs yarn
+
+      - name: Prepare database
+        run: |
+          chmod +x bin/rails
           bin/rails db:create
           bin/rails db:schema:load
-      - name: Run tests
-        run: bundle exec rspec
-# test trigger
+
+      - name: Run RSpec
+        run: |
+          bundle exec rspec
