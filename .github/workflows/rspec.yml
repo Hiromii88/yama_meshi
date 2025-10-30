@@ -44,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y libpq-dev nodejs yarn
+          sudo apt-get install -y libpq-dev libvips42 libvips-dev nodejs yarn
 
       - name: Prepare database
         run: |
