@@ -30,22 +30,19 @@
 - **シンプル操作**：カロリーを入力 → 提案を見る、の2ステップで完結
 - **登山特化のデータベース**：実用性を重視したレシピを厳選
 
-## ■ 機能候補
-### MVPリリース
+## ■ 機能一覧
 - 必要カロリーを入力すると、ランダムでレシピを提案
-
-### 本リリース
 - 気に入ったレシピを保存できる「お気に入り機能」
+- LINE連携機能：お気に入り登録したレシピの材料リストをLINEに自動送信
 
 ## ■ 使用技術
 - フレームワーク: Ruby on Rails 7
 - DB: PostgreSQL
 - フロントエンド: Tailwind CSS
-- テスト: RSpec
-- インフラ: Docker（開発環境）、Render（本番デプロイ予定）
-- 外部連携: LINE Notify（予定）
+- テスト: RSpec（CI: GitHub Actions ✅）
+![CI](https://github.com/Hiromii88/yama_meshi/actions/workflows/rspec.yml/badge.svg)
+- インフラ: Docker（開発環境）、Render（本番デプロイ）
+- 外部連携: Messaging API
 
-## ■ 今後の展望
-- レシピのタグ付け（主食/デザート/軽量食 など）による組み合わせ提案
-- ユーザーごとの「マイメニュー」保存機能
-- Messaging APIへ拡張し、ボット対話でメニュー生成
+## ■ 今後のリリース予定
+- LINE Messaging APIによるボット対話提案
