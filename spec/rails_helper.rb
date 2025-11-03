@@ -82,7 +82,7 @@ RSpec.configure do |config|
       }
       Capybara.server_host = '0.0.0.0'
       Capybara.server_port = 3001
-      Capybara.app_host = "http://host.docker.internal:3001"
+      Capybara.app_host = "http://172.17.0.1:3001"
     else
       driven_by :selenium_chrome_headless
     end
