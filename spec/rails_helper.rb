@@ -12,6 +12,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'selenium/webdriver'
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -74,11 +75,17 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.before(:each, type: :system) do
-    driven_by :remote_chrome
-    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.server_port = 4444
-    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
-    Capybara.ignore_hidden_elements = false
+    if ENV['SELENIUM_DRIVER_URL'] # CI環境など、Selenium接続URLが指定されている場合
+      driven_by :selenium, using: :chrome, options: {
+        browser: :remote,
+        url: ENV['SELENIUM_DRIVER_URL']
+      }
+      Capybara.server_host = '0.0.0.0'
+      Capybara.server_port = 3001
+      Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+    else
+      driven_by :selenium_chrome_headless
+    end
   end
   config.include Warden::Test::Helpers
   config.after(type: :system) { Warden.test_reset! }
