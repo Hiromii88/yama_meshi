@@ -60,6 +60,11 @@ jobs:
           bin/rails db:create
           bin/rails db:schema:load
 
+      - name: Build assets
+        run: |
+          yarn install --check-files
+          yarn build
+
       - name: Run RSpec
         run: |
           bundle exec rspec
