@@ -7,6 +7,7 @@ RSpec.describe Favorite, type: :model do
   end
 
   describe 'バリデーション' do
+    subject { create(:favorite) }
     # user_id と recipe_id の組み合わせが一意であることを確認
     it { should validate_uniqueness_of(:user_id).scoped_to(:recipe_id) }
   end
