@@ -2,13 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'Recipe Suggest Feature', type: :system do
   describe 'メイン機能：カロリー入力によるレシピ提案' do
+    let!(:recipe) { create(:recipe) }
     it 'ユーザーがカロリーを入力するとおすすめレシピが表示される' do
       visit root_path
       fill_in 'カロリー', with: '500'
       click_button '決定'
-
-      puts "現在のURL: #{page.current_path}"
-      puts "ページ内容:\n#{page.text}"
 
       expect(page).to have_content('おすすめのメニューはこれ！')
       expect(page).to have_selector('.recipe-card')
