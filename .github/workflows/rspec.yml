@@ -63,7 +63,11 @@ jobs:
       - name: Build assets
         run: |
           yarn install --check-files
-          yarn build
+          yarn build:css
+
+      - name: Precompile assets
+        run: |
+          bin/rails assets:precompile
 
       - name: Run RSpec
         run: |
