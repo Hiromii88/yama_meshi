@@ -37,12 +37,9 @@ jobs:
 
     env:
       RAILS_ENV: test
-      DB_HOST: localhost
-      DB_USER: postgres
-      DB_PASSWORD: password
       DATABASE_URL: "postgres://postgres:password@localhost:5432/yama_meshi_test"
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
       DISABLE_BOOTSNAP: true
-      SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub 
 
     steps:
       - uses: actions/checkout@v4
