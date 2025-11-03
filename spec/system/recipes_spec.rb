@@ -7,6 +7,9 @@ RSpec.describe 'Recipe Suggest Feature', type: :system do
       fill_in 'カロリー', with: '500'
       click_button '決定'
 
+      puts "現在のURL: #{page.current_path}"
+      puts "ページ内容:\n#{page.text}"
+
       expect(page).to have_content('おすすめのメニューはこれ！')
       expect(page).to have_selector('.recipe-card')
     end
